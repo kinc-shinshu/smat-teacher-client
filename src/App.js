@@ -14,11 +14,6 @@ class ReactRouter extends Component {
           <Route exact path='/' component={Top} />
           <Route path='/edit' component={Edit} />
           <Route path='/done' component={Done} />
-          <ul>
-            <li><Link className="waves-effect waves-light btn" to="/">Top</Link></li>
-            <li><Link className="waves-effect waves-light btn" to="/edit">Edit</Link></li>
-            <li><Link className="waves-effect waves-light btn" to="/done">Done</Link></li>
-          </ul>
         </div>
       </BrowserRouter>
     )
