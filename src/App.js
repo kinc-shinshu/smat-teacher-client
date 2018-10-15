@@ -1,58 +1,28 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Link} from 'react-router-dom'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
+import { Top } from './screens/Top';
+import { Edit } from './screens/Edit';
+import { Done } from './screens/Done';
 
 class ReactRouter extends Component {
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path='/' component={Home} />
-          <Route path='/about' component={About} />
-          <Route path='/friends' component={Friends} />
+          <Route exact path='/' component={Top} />
+          <Route path='/edit' component={Edit} />
+          <Route path='/done' component={Done} />
           <ul>
-            <li><Link className="waves-effect waves-light btn" to="/">Home</Link></li>
-            <li><Link className="waves-effect waves-light btn" to="/about">About</Link></li>
-            <li><Link className="waves-effect waves-light btn" to="/friends">Friends</Link></li>
+            <li><Link className="waves-effect waves-light btn" to="/">Top</Link></li>
+            <li><Link className="waves-effect waves-light btn" to="/edit">Edit</Link></li>
+            <li><Link className="waves-effect waves-light btn" to="/done">Done</Link></li>
           </ul>
         </div>
       </BrowserRouter>
     )
   }
-}
-
-class Home extends Component {
-  render() {
-    return (
-      <div style={{background: "red"}}>
-        <h2>Home</h2>
-        <p>Welcome to</p>
-      </div>
-    )
-  } 
-}
-
-class About extends Component {
-  render() {
-    return (
-      <div style={{background: "green"}}>
-        <h2>About</h2>
-        <p>勘弁してください</p>
-      </div>
-    )
-  } 
-}
-
-class Friends extends Component {
-  render() {
-    return (
-      <div style={{background: "blue"}}>
-        <h2>Friends</h2>
-        <p>ここにフレンズのリストを書きます</p>
-      </div>
-    )
-  } 
 }
 
 class App extends Component {
