@@ -47,14 +47,6 @@ export class Top extends Component {
 
           </div>
         </div>
-        <footer className="page-footer grey darken-2">
-          <div className="footer-copyright">
-            <div className="container">
-              © 2018 SmaT powered by KINC.
-              <a className="grey-text text-lighten-4 right" href="#!">Github</a>
-            </div>
-          </div>
-        </footer>
       </div>
     )
   }
