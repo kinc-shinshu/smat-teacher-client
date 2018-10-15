@@ -132,10 +132,8 @@ export class Edit extends Component {
         </div>
 
         <div className="waves-effect waves-light btn-large">
-          <span><Link to="/" className="white-text">完成</Link></span>
-
+          <span ><Link to="/" >完成</Link></span>
         </div>
-
       </div>
     );
   }
