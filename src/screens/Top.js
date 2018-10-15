@@ -12,8 +12,8 @@ export class Top extends Component {
             <div className="nav-wrapper container">
               <a href="#!" className="brand-logo">Logo</a>
               <ul className="right hide-on-med-and-down">
-                <li><Link to="edit">追加</Link></li>
-                <li><a href="#">ロード</a></li>
+                <li><Link to="edit">新しい問題を追加</Link></li>
+                <li><Link to="load">作成した問題をロード</Link></li>
                 <li><Link to="done">完成</Link></li>
               </ul>
             </div>
@@ -44,7 +44,6 @@ export class Top extends Component {
               className="material-icons">delete</i></a></a>
             <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
               className="material-icons">delete</i></a></a>
-
           </div>
         </div>
       </div>

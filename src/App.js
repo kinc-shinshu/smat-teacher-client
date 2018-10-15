@@ -5,6 +5,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import { Top } from './screens/Top';
 import { Edit } from './screens/Edit';
 import { Done } from './screens/Done';
+import { Load } from './screens/Load';
 
 class ReactRouter extends Component {
   render() {
@@ -12,6 +13,7 @@ class ReactRouter extends Component {
       <BrowserRouter>
         <div>
           <Route exact path='/' component={Top} />
+          <Route path='/load' component={Load}/>
           <Route path='/edit' component={Edit} />
           <Route path='/done' component={Done} />
         </div>
