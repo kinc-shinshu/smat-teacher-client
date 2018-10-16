@@ -4,16 +4,31 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 export class Top extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      questions: []
+    }
+  }
+
   change = (e) => {
     const fileReader = new FileReader();
     const file = e.target.files[0];
     fileReader.readAsText(file);
     fileReader.onloadend = (event) => {
-      console.log(JSON.parse());
+      const json = JSON.parse(event.target.result);
+      this.setState({questions: json});
+      console.log(JSON.parse(event.target.result));
     }
   }
 
   render() {
+
+    const items = this.state.questions.map((c, i) =>{
+      return<a href="#!" className="collection-item">{c.text}<a href="#delete" className="secondary-content"><i
+          className="material-icons">delete</i></a></a>
+    });
 
     return (
       <div>
@@ -39,26 +54,7 @@ export class Top extends Component {
         <div className="container">
           <h5>問題一覧</h5>
           <div className="collection">
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
+            {items}
             <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
               className="material-icons">delete</i></a></a>
           </div>
@@ -67,4 +63,5 @@ export class Top extends Component {
     )
   }
 }
+
 
