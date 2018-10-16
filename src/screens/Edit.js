@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 export class Edit extends Component {
   constructor(props){
     super(props)
-    const tex = "ax^2 + bx + c = 0"
+    const tex = props.match.params.id;
     this.state = {
       timer: undefined,
       input: tex, 

@@ -26,7 +26,7 @@ export class Top extends Component {
   render() {
 
     const items = this.state.questions.map((c, i) =>{
-      return<a href="#!" className="collection-item">{c.text}<a href="#delete" className="secondary-content"><i
+      return<a href={"/edit/"+c.text} className="collection-item">{c.text}<a href="#delete" className="secondary-content"><i
           className="material-icons">delete</i></a></a>
     });
 
@@ -37,7 +37,7 @@ export class Top extends Component {
             <div className="nav-wrapper container">
               <a href="#!" className="brand-logo">Logo</a>
               <ul className="right hide-on-med-and-down">
-                <li><Link to="edit">新しい問題を追加</Link></li>
+                <li><Link to="edit/:id">新しい問題を追加</Link></li>
                 <li>
                   <label className="white-text" style={{fontSize:"1em"}}>
                     <a>
@@ -55,7 +55,7 @@ export class Top extends Component {
           <h5>問題一覧</h5>
           <div className="collection">
             {items}
-            <a href="#!" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
+            <a href="/edit/Alvin" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
               className="material-icons">delete</i></a></a>
           </div>
         </div>

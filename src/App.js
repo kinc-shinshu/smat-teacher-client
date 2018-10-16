@@ -12,7 +12,7 @@ class ReactRouter extends Component {
       <BrowserRouter>
         <div>
           <Route exact path='/' component={Top} />
-          <Route path='/edit' component={Edit} />
+          <Route path='/edit/:id' component={Edit} />
           <Route path='/done' component={Done} />
         </div>
       </BrowserRouter>
