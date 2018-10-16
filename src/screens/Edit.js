@@ -131,9 +131,8 @@ export class Edit extends Component {
           <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
         </div>
 
-        <div className="waves-effect waves-light btn-large">
-          <span ><Link to="/" >完成</Link></span>
-        </div>
+        <span ><Link to="/" className="waves-effect waves-light btn-large">完成</Link></span>
+
       </div>
     );
   }
