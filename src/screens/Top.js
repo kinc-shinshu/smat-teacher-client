@@ -4,7 +4,17 @@ import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 
 export class Top extends Component {
+  change = (e) => {
+    const fileReader = new FileReader();
+    const file = e.target.files[0];
+    fileReader.readAsText(file);
+    fileReader.onloadend = (event) => {
+      console.log(event);
+    }
+  }
+
   render() {
+
     return (
       <div>
         <div className="navbar-fixed" >
@@ -13,7 +23,14 @@ export class Top extends Component {
               <a href="#!" className="brand-logo">Logo</a>
               <ul className="right hide-on-med-and-down">
                 <li><Link to="edit">新しい問題を追加</Link></li>
-                <li><Link to="load">作成した問題をロード</Link></li>
+                <li>
+                  <label className="white-text" style={{fontSize:"1em"}}>
+                    <a>
+                      作成した問題をロード
+                      <input id="file-load" type="file" style={{display:"None"}} onChange={this.change} />
+                    </a>
+                  </label>
+                </li>
                 <li><Link to="done">完成</Link></li>
               </ul>
             </div>
