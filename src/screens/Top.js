@@ -37,7 +37,7 @@ export class Top extends Component {
             <div className="nav-wrapper container">
               <a href="#!" className="brand-logo">Logo</a>
               <ul className="right hide-on-med-and-down">
-                <li><Link to="edit">新しい問題を追加</Link></li>
+                <li><Link to="edit/:id">新しい問題を追加</Link></li>
                 <li>
                   <label className="white-text" style={{fontSize:"1em"}}>
                     <a>
