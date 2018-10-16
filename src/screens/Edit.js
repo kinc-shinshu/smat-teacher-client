@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import MathJax from 'react-mathjax';
+import {Link} from "react-router-dom";
 
 export class Edit extends Component {
   constructor(props){
@@ -129,6 +130,8 @@ export class Edit extends Component {
         <div className="input-field">
           <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
         </div>
+
+        <span ><Link to="/" className="waves-effect waves-light btn-large">完成</Link></span>
 
       </div>
     );
