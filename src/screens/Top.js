@@ -9,7 +9,7 @@ export class Top extends Component {
     const file = e.target.files[0];
     fileReader.readAsText(file);
     fileReader.onloadend = (event) => {
-      console.log(event);
+      console.log(JSON.parse());
     }
   }
 
@@ -27,7 +27,7 @@ export class Top extends Component {
                   <label className="white-text" style={{fontSize:"1em"}}>
                     <a>
                       作成した問題をロード
-                      <input id="file-load" type="file" style={{display:"None"}} onChange={this.change} />
+                      <input type="file" style={{display:"None"}} onChange={this.change} />
                     </a>
                   </label>
                 </li>
