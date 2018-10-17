@@ -24,6 +24,38 @@ export class Top extends Component {
     }
   }
 
+  waitTime = (Time) => {
+    var huga = 0;
+    var hoge = setInterval(function() {
+      console.log(huga);
+      huga++;
+      //終了条件
+      if (huga == 10) {
+        clearInterval(hoge);
+        console.log("終わり");
+      }
+    }, Time);
+  }
+
+  click = () => {
+    this.state.questions.map((c) =>{
+      return c.map((b) => {
+        const data = {
+          text: b.text,
+          answer: b.answer
+        };
+        fetch("http://localhost:3000/rooms/111/questions/", {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers:{
+            'Content-Type': 'application/json'
+          }
+        })
+        this.waitTime(3000);
+      });
+    });
+  }
+
   render() {
 
     const items = this.state.questions.map((c) =>{
@@ -43,13 +75,12 @@ export class Top extends Component {
                 <li><Link to="edit/:id">新しい問題を追加</Link></li>
                 <li>
                   <label className="white-text" style={{fontSize:"1em"}}>
-                    <a>
-                      作成した問題をロード
+                    <a>作成した問題をロード
                       <input type="file" style={{display:"None"}} onChange={this.change} />
                     </a>
                   </label>
                 </li>
-                <li><Link to="done">完成</Link></li>
+                <li><Link to="done" onClick={this.click}>完成</Link></li>
               </ul>
             </div>
           </nav>
@@ -66,5 +97,7 @@ export class Top extends Component {
     )
   }
 }
+
+
 
 
