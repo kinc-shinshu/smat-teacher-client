@@ -32,28 +32,44 @@ export class Top extends Component {
       //終了条件
       if (huga == 10) {
         clearInterval(hoge);
-        console.log("終わり");
       }
     }, Time);
   }
 
   click = () => {
-    this.state.questions.map((c) =>{
-      return c.map((b) => {
-        const data = {
-          text: b.text,
-          answer: b.answer
-        };
-        fetch("http://localhost:3000/rooms/111/questions/", {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers:{
-            'Content-Type': 'application/json'
-          }
-        })
-        this.waitTime(3000);
+    const data = {
+      title: "test"
+    }
+    fetch("http://localhost:3000/rooms/", {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(json.id)
+        this.state.questions.map((c) =>{
+          return c.map((b) =>{
+            const question = {
+              text: b.text,
+              answer: b.answer
+            }
+            fetch("http://localhost:3000/rooms/" + json.id + "/questions/", {
+              method: 'POST',
+              body: JSON.stringify(question),
+              headers:{
+                'Content-Type': 'application/json'
+              }
+            })
+              .then(response => response.json())
+              .then(json => {
+                console.log(json);
+              });
+          })
+        });
       });
-    });
   }
 
   render() {
@@ -97,6 +113,8 @@ export class Top extends Component {
     )
   }
 }
+
+
 
 
 
