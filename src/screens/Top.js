@@ -8,7 +8,7 @@ export class Top extends Component {
   constructor(props){
     super(props);
     this.state = {
-      questions: []
+      questions: [[],[]]
     }
   }
 
@@ -18,16 +18,19 @@ export class Top extends Component {
     fileReader.readAsText(file);
     fileReader.onloadend = (event) => {
       const json = JSON.parse(event.target.result);
-      this.setState({questions: json});
-      console.log(JSON.parse(event.target.result));
+      let oldJson = this.state.questions;
+      oldJson.push(json);
+      this.setState({questions: oldJson});
     }
   }
 
   render() {
 
-    const items = this.state.questions.map((c, i) =>{
-      return<a href={"/edit/"+c.text} className="collection-item">{c.text}<a href="#delete" className="secondary-content"><i
+    const items = this.state.questions.map((c) =>{
+      return c.map((b) => {
+        return<a href={"/edit/"+b.text} className="collection-item">{b.text}<a href="#delete" className="secondary-content"><i
           className="material-icons">delete</i></a></a>
+      });
     });
 
     return (
