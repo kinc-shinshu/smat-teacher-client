@@ -79,17 +79,18 @@ export class Edit extends Component {
       input: input
     });
     clearTimeout(this.state.timer);
-    this.state.timer = setTimeout(() => {
-      this.setState({
-        output: result
-      });
-    }, 300);
+    this.setState({
+      timer: setTimeout(() => {
+        this.setState({
+          output: result
+        });
+      }, 300)
+    });
   }
 
   render() {
     return (
       <div className="container">
-        <h2></h2>
         
         <div className="card blue-grey lighten-4">
           <div className="card-content flow-text" style={{minHeight: "6em"}}>

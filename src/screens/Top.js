@@ -19,15 +19,20 @@ export class Top extends Component {
     fileReader.onloadend = (event) => {
       const json = JSON.parse(event.target.result);
       this.setState({questions: json});
-      console.log(JSON.parse(event.target.result));
+      console.log(json);
     }
   }
 
   render() {
 
-    const items = this.state.questions.map((c, i) =>{
-      return<a href={"/edit/"+c.text} className="collection-item">{c.text}<a href="#delete" className="secondary-content"><i
-          className="material-icons">delete</i></a></a>
+    const items = this.state.questions.map((c, i) => {
+      return (
+        <a href={"/edit/" + c.text} className="collection-item">
+          {c.text}
+          <a href="#delete" className="secondary-content"><i
+          className="material-icons">delete</i></a>
+        </a>
+      );
     });
 
     return (
@@ -55,8 +60,7 @@ export class Top extends Component {
           <h5>問題一覧</h5>
           <div className="collection">
             {items}
-            <a href="/edit/Alvin" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i
-              className="material-icons">delete</i></a></a>
+            <a href="/edit/Alvin" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i className="material-icons">delete</i></a></a>
           </div>
         </div>
       </div>

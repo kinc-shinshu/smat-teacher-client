@@ -13,7 +13,7 @@ export class Done extends Component {
           <h3 className="center-align hide-on-small-only" style={{marginBottom:"1em"}}>番号を生徒にお伝えください</h3>
         </div>
         <div className="center-align">
-          <img src={tabletIcon} />
+          <img src={tabletIcon} alt="" />
         </div>
       </div>
     )
