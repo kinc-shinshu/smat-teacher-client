@@ -24,18 +24,6 @@ export class Top extends Component {
     }
   }
 
-  waitTime = (Time) => {
-    var huga = 0;
-    var hoge = setInterval(function() {
-      console.log(huga);
-      huga++;
-      //終了条件
-      if (huga == 10) {
-        clearInterval(hoge);
-      }
-    }, Time);
-  }
-
   click = () => {
     const data = {
       title: "test"
