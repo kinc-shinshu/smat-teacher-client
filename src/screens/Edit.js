@@ -74,6 +74,14 @@ export class Edit extends Component {
     this.add("?^{?}");
   }
 
+  times = () => {
+    this.add("*");
+  }
+
+  div = () => {
+    this.add("/");
+  }
+
   change = (e) => {
     const input = e.target.value;
     const result = this.parse(input);
@@ -107,46 +115,82 @@ export class Edit extends Component {
   render() {
     return (
       <div className="container">
-        <h2></h2>
-        
-        <div className="card blue-grey lighten-4">
-          <div className="card-content flow-text" style={{minHeight: "6em"}}>
+        <div class="card-panel grey lighten-4">
+          <h4>問題</h4>
+          <div className="card white">
+            <div className="card-content flow-text" style={{minHeight: "6em"}}>
+              <MathJax.Provider>
+                <MathJax.Node formula={this.state.output} />
+              </MathJax.Provider>
+            </div>
+          </div>
+          <button className="waves-effect waves-light btn-large" onClick={this.sqrt} style={{fontSize: "0.8em"}}>
             <MathJax.Provider>
-              <MathJax.Node formula={this.state.output} />
+              <MathJax.Node formula="\sqrt{\boxed{\phantom{0}}}" />
             </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.frac} style={{fontSize: "0.6em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\frac{\boxed{\phantom{0}}}{\boxed{\phantom{0}}}" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.index} style={{fontSize: "0.8em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\boxed{\phantom{0}}^{\boxed{\phantom{0}}}" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.times} style={{fontSize: "1.2em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\times" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.div} style={{fontSize: "1.2em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\div" />
+            </MathJax.Provider>
+          </button>
+          <div className="input-field">
+            <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
           </div>
         </div>
 
-        <nav>
-          <div class="nav-wrapper">
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-              <li>
-                <a onClick={this.sqrt} style={{minHeight: "3em", minWidth: "8em"}}>
-                  <MathJax.Provider>
-                    <MathJax.Node formula="\sqrt{\boxed{\phantom{0}}}" />
-                  </MathJax.Provider>
-                </a>
-              </li>
-              <li>
-                <a onClick={this.frac} style={{minHeight: "3em", minWidth: "8em"}}>
-                  <MathJax.Provider>
-                    <MathJax.Node formula="\frac{\boxed{\phantom{0}}}{\boxed{\phantom{0}}}" />
-                  </MathJax.Provider>
-                </a>
-              </li>
-              <li>
-                <a onClick={this.index} style={{minHeight: "3em", minWidth: "8em"}}>
-                  <MathJax.Provider>
-                    <MathJax.Node formula="\boxed{\phantom{0}}^{\boxed{\phantom{0}}}" />
-                  </MathJax.Provider>
-                </a>
-              </li>
-            </ul>
+        <div class="card-panel grey lighten-4">
+          <h4>答え</h4>
+          <div className="card white">
+            <div className="card-content flow-text" style={{minHeight: "6em"}}>
+              <MathJax.Provider>
+                <MathJax.Node formula={this.state.output} />
+              </MathJax.Provider>
+            </div>
           </div>
-        </nav>
-
-        <div className="input-field">
-          <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
+          <button className="waves-effect waves-light btn-large" onClick={this.sqrt} style={{fontSize: "0.8em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\sqrt{\boxed{\phantom{0}}}" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.frac} style={{fontSize: "0.6em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\frac{\boxed{\phantom{0}}}{\boxed{\phantom{0}}}" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.index} style={{fontSize: "0.8em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\boxed{\phantom{0}}^{\boxed{\phantom{0}}}" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.times} style={{fontSize: "1.2em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\times" />
+            </MathJax.Provider>
+          </button>
+          <button className="waves-effect waves-light btn-large" onClick={this.div} style={{fontSize: "1.2em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula="\div" />
+            </MathJax.Provider>
+          </button>
+          <div className="input-field">
+            <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
+          </div>
         </div>
 
         <span ><a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a></span>
