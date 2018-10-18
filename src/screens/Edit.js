@@ -7,13 +7,15 @@ import {Link} from "react-router-dom";
 export class Edit extends Component {
   constructor(props){
     super(props)
-    const tex = props.match.params.id;
+    const tex = "1";
     this.state = {
+      questions: this.props.questions,
       timer: undefined,
-      input: tex, 
+      input: tex,
       output: tex
     }
   }
+
 
   parse = (text) => {
     let result = text.replace(/\*/g, "\\times");
@@ -86,6 +88,22 @@ export class Edit extends Component {
     }, 300);
   }
 
+  addQuestion = () => {
+    const question = {
+      id: "1",
+      text: "1",
+      answer: "1"
+    };
+    const oldJson = this.state.questions;
+    const newJson = oldJson.concat(question);
+    console.log(newJson);
+    this.setState({questions: newJson}, () => {
+      console.log("hey");
+      console.log(this.state.questions);
+      this.props.updateState(this.state);
+    });
+  }
+
   render() {
     return (
       <div className="container">
@@ -131,7 +149,8 @@ export class Edit extends Component {
           <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
         </div>
 
-        <span ><Link to="/" className="waves-effect waves-light btn-large">完成</Link></span>
+        <span ><a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a></span>
+        <span ><Link to={"/"} className="waves-effect waves-light btn-large">問題一覧へGo</Link></span>
 
       </div>
     );

@@ -6,14 +6,31 @@ import { Top } from './screens/Top';
 import { Edit } from './screens/Edit';
 import { Done } from './screens/Done';
 
+
 class ReactRouter extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      questions: []
+    }
+    this.updateState = this.updateState.bind(this);
+  }
+
+  updateState(state){
+    this.setState(state);
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path='/' component={Top} />
-          <Route path='/edit/:id' component={Edit} />
-          <Route path='/done' component={Done} />
+          <Route exact path='/'
+                 render={props => <Top updateState={this.updateState} questions={this.state.questions}/>} />
+          <Route path='/edit/:id'
+                 render={props => <Edit updateState={this.updateState} questions={this.state.questions}/>} />
+          <Route path='/done'
+                 render={props => <Done questions={this.state.questions}/>} />
         </div>
       </BrowserRouter>
     )
@@ -21,6 +38,7 @@ class ReactRouter extends Component {
 }
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">

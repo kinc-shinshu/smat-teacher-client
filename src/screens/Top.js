@@ -8,9 +8,10 @@ export class Top extends Component {
   constructor(props){
     super(props);
     this.state = {
-      questions: [[],[]]
-    }
+      questions: this.props.questions
+    };
   }
+
 
   change = (e) => {
     const fileReader = new FileReader();
@@ -18,17 +19,20 @@ export class Top extends Component {
     fileReader.readAsText(file);
     fileReader.onloadend = (event) => {
       const json = JSON.parse(event.target.result);
-      let oldJson = this.state.questions;
-      oldJson.push(json);
-      this.setState({questions: oldJson});
+      const oldJson = this.state.questions;
+      const newJson = oldJson.concat(json);
+      this.setState({questions: newJson});
     }
   }
 
   click = () => {
+    const apiUrl = "https://smat-api.herokuapp.com"
+
     const data = {
       title: "test"
     }
-    fetch("http://localhost:3000/rooms/", {
+
+    fetch(apiUrl + "/rooms", {
       method: 'POST',
       body: JSON.stringify(data),
       headers:{
@@ -37,14 +41,13 @@ export class Top extends Component {
     })
       .then(response => response.json())
       .then(json => {
-        console.log(json.id)
+        console.log(json.id);
         this.state.questions.map((c) =>{
-          return c.map((b) =>{
             const question = {
-              text: b.text,
-              answer: b.answer
+              text: c.text,
+              answer: c.answer
             }
-            fetch("http://localhost:3000/rooms/" + json.id + "/questions/", {
+            fetch(apiUrl + "/rooms/" + json.id + "/questions", {
               method: 'POST',
               body: JSON.stringify(question),
               headers:{
@@ -56,17 +59,20 @@ export class Top extends Component {
                 console.log(json);
               });
           })
-        });
       });
+  }
+
+  deleteClick = (e) => {
+    const key = e.target.getAttribute("questionId");
+    const deleted = this.state.questions.filter(q => q.id !== key);
+    this.setState({questions: deleted});
   }
 
   render() {
 
     const items = this.state.questions.map((c) =>{
-      return c.map((b) => {
-        return<a href={"/edit/"+b.text} className="collection-item">{b.text}<a href="#delete" className="secondary-content"><i
-          className="material-icons">delete</i></a></a>
-      });
+      return<a  href={"/edit/"+c.text} className="collection-item">{c.text}<a href="#delete" className="secondary-content"><i
+          className="material-icons" questionId={c.id} onClick={this.deleteClick}>delete</i></a></a>
     });
 
     return (
@@ -76,7 +82,7 @@ export class Top extends Component {
             <div className="nav-wrapper container">
               <a href="#!" className="brand-logo">Logo</a>
               <ul className="right hide-on-med-and-down">
-                <li><Link to="edit/:id">新しい問題を追加</Link></li>
+                <li><Link to="edit/:id" onClick={() =>{this.props.updateState(this.state);} }>新しい問題を追加</Link></li>
                 <li>
                   <label className="white-text" style={{fontSize:"1em"}}>
                     <a>作成した問題をロード
