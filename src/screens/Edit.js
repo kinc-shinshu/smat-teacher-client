@@ -106,7 +106,7 @@ export class Edit extends Component {
     const newJson = oldJson.concat(question);
     console.log(newJson);
     this.setState({questions: newJson}, () => {
-      console.log("hey");
+      console.log("pass");
       console.log(this.state.questions);
       this.props.updateState(this.state);
     });

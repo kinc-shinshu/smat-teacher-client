@@ -21,7 +21,9 @@ export class Top extends Component {
       const json = JSON.parse(event.target.result);
       const oldJson = this.state.questions;
       const newJson = oldJson.concat(json);
-      this.setState({questions: newJson});
+      this.setState({questions: newJson}, () => {
+        this.props.updateState(this.state);
+      });
     }
   }
 
@@ -90,7 +92,7 @@ export class Top extends Component {
                     </a>
                   </label>
                 </li>
-                <li><Link to="done" onClick={this.click}>完成</Link></li>
+                <li><Link to="done">完成</Link></li>
               </ul>
             </div>
           </nav>
