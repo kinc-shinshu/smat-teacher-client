@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import MathJax from 'react-mathjax';
-import {Link} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
 
 
 class MathBox extends Component {
@@ -52,6 +53,9 @@ class MathBox extends Component {
     const before = this.state.input.slice(0, cursor);
     const after = this.state.input.slice(cursor);
     const changed_text = before + text + after;
+    this.props.updateState({
+      [this.props.name]: changed_text
+    });
     this.setState({
       input: changed_text, 
       output: this.parse(changed_text)
@@ -159,7 +163,7 @@ export class Edit extends Component {
     this.setState(state);
   }
 
-  addQuestion = () => {
+  addQuestion = (e) => {
     const question = {
       text: this.state.text,
       answer: this.state.answer
