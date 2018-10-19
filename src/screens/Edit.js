@@ -89,11 +89,13 @@ export class Edit extends Component {
       input: input
     });
     clearTimeout(this.state.timer);
-    this.state.timer = setTimeout(() => {
-      this.setState({
-        output: result
-      });
-    }, 300);
+    this.setState({
+      timer: setTimeout(() => {
+        this.setState({
+          output: result
+        });
+      }, 300)
+    });
   }
 
   addQuestion = () => {
@@ -115,6 +117,7 @@ export class Edit extends Component {
   render() {
     return (
       <div className="container">
+
         <div class="card-panel grey lighten-4">
           <h4>問題</h4>
           <div className="card white">
@@ -140,6 +143,7 @@ export class Edit extends Component {
             </MathJax.Provider>
           </button>
           <button className="waves-effect waves-light btn-large" onClick={this.times} style={{fontSize: "1.2em"}}>
+
             <MathJax.Provider>
               <MathJax.Node formula="\times" />
             </MathJax.Provider>

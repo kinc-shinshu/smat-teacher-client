@@ -88,7 +88,7 @@ export class Done extends Component {
           <Progress width={this.state.progress} show={this.state.barShow} />
         </div>
         <div className="center-align">
-          <img src={tabletIcon} />
+          <img src={tabletIcon} alt="" />
         </div>
       </div>
     )
