@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import MathJax from 'react-mathjax';
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
