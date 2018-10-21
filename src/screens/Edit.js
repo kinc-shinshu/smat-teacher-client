@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
 import MathJax from 'react-mathjax';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export class Edit extends Component {
+
+
+class MathBox extends Component {
   constructor(props){
     super(props)
-    const tex = "1";
+    const initText = this.props.init;
     this.state = {
-      questions: this.props.questions,
       timer: undefined,
-      input: tex,
-      output: tex
+      input: initText,
+      output: this.parse(initText)
     }
   }
-
 
   parse = (text) => {
     let result = text.replace(/\*/g, "\\times");
@@ -48,11 +48,14 @@ export class Edit extends Component {
   }
 
   add = (text) => {
-    const input = document.querySelector("#input");
+    const input = document.querySelector("#" + this.props.name);
     const cursor = input.selectionStart;
     const before = this.state.input.slice(0, cursor);
     const after = this.state.input.slice(cursor);
     const changed_text = before + text + after;
+    this.props.updateState({
+      [this.props.name]: changed_text
+    });
     this.setState({
       input: changed_text, 
       output: this.parse(changed_text)
@@ -88,6 +91,9 @@ export class Edit extends Component {
     this.setState({
       input: input
     });
+    this.props.updateState({
+      [this.props.name]: input
+    })
     clearTimeout(this.state.timer);
     this.setState({
       timer: setTimeout(() => {
@@ -98,17 +104,72 @@ export class Edit extends Component {
     });
   }
 
-  addQuestion = () => {
+  render() {
+    return (
+      <div>
+        <div className="card white">
+          <div className="card-content flow-text" style={{minHeight: "6em"}}>
+            <MathJax.Provider>
+              <MathJax.Node formula={this.state.output} />
+            </MathJax.Provider>
+          </div>
+        </div>
+        <button className="waves-effect waves-light btn-large" onClick={this.sqrt} style={{fontSize: "0.8em"}}>
+          <MathJax.Provider>
+            <MathJax.Node formula="\sqrt{\boxed{\phantom{0}}}" />
+          </MathJax.Provider>
+        </button>
+        <button className="waves-effect waves-light btn-large" onClick={this.frac} style={{fontSize: "0.6em"}}>
+          <MathJax.Provider>
+            <MathJax.Node formula="\frac{\boxed{\phantom{0}}}{\boxed{\phantom{0}}}" />
+          </MathJax.Provider>
+        </button>
+        <button className="waves-effect waves-light btn-large" onClick={this.index} style={{fontSize: "0.8em"}}>
+          <MathJax.Provider>
+            <MathJax.Node formula="\boxed{\phantom{0}}^{\boxed{\phantom{0}}}" />
+          </MathJax.Provider>
+        </button>
+        <button className="waves-effect waves-light btn-large" onClick={this.times} style={{fontSize: "1.2em"}}>
+          <MathJax.Provider>
+            <MathJax.Node formula="\times" />
+          </MathJax.Provider>
+        </button>
+        <button className="waves-effect waves-light btn-large" onClick={this.div} style={{fontSize: "1.2em"}}>
+          <MathJax.Provider>
+            <MathJax.Node formula="\div" />
+          </MathJax.Provider>
+        </button>
+        <div className="input-field">
+          <input id={this.props.name} type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
+        </div>
+      </div>
+    );
+  }
+}
+
+
+export class Edit extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      questions: this.props.questions,
+      text: "ax^{2}+bx+c=0",
+      answer: "[-b+-#{b^{2}-4ac}]%[2a]"
+    }
+    this.updateState = this.updateState.bind(this);
+  }
+
+  updateState(state){
+    this.setState(state);
+  }
+
+  addQuestion = (e) => {
     const question = {
-      id: "1",
-      text: "1",
-      answer: "1"
+      text: this.state.text,
+      answer: this.state.answer
     };
-    const oldJson = this.state.questions;
-    const newJson = oldJson.concat(question);
-    console.log(newJson);
-    this.setState({questions: newJson}, () => {
-      console.log("pass");
+    const changed = this.state.questions.concat(question);
+    this.setState({questions: changed}, () => {
       console.log(this.state.questions);
       this.props.updateState(this.state);
     });
@@ -117,84 +178,13 @@ export class Edit extends Component {
   render() {
     return (
       <div className="container">
-
         <div class="card-panel grey lighten-4">
           <h4>問題</h4>
-          <div className="card white">
-            <div className="card-content flow-text" style={{minHeight: "6em"}}>
-              <MathJax.Provider>
-                <MathJax.Node formula={this.state.output} />
-              </MathJax.Provider>
-            </div>
-          </div>
-          <button className="waves-effect waves-light btn-large" onClick={this.sqrt} style={{fontSize: "0.8em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\sqrt{\boxed{\phantom{0}}}" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.frac} style={{fontSize: "0.6em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\frac{\boxed{\phantom{0}}}{\boxed{\phantom{0}}}" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.index} style={{fontSize: "0.8em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\boxed{\phantom{0}}^{\boxed{\phantom{0}}}" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.times} style={{fontSize: "1.2em"}}>
-
-            <MathJax.Provider>
-              <MathJax.Node formula="\times" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.div} style={{fontSize: "1.2em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\div" />
-            </MathJax.Provider>
-          </button>
-          <div className="input-field">
-            <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
-          </div>
+          <MathBox name="text" init="ax^{2}+bx+c=0" updateState={this.updateState} />
         </div>
-
         <div class="card-panel grey lighten-4">
-          <h4>答え</h4>
-          <div className="card white">
-            <div className="card-content flow-text" style={{minHeight: "6em"}}>
-              <MathJax.Provider>
-                <MathJax.Node formula={this.state.output} />
-              </MathJax.Provider>
-            </div>
-          </div>
-          <button className="waves-effect waves-light btn-large" onClick={this.sqrt} style={{fontSize: "0.8em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\sqrt{\boxed{\phantom{0}}}" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.frac} style={{fontSize: "0.6em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\frac{\boxed{\phantom{0}}}{\boxed{\phantom{0}}}" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.index} style={{fontSize: "0.8em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\boxed{\phantom{0}}^{\boxed{\phantom{0}}}" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.times} style={{fontSize: "1.2em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\times" />
-            </MathJax.Provider>
-          </button>
-          <button className="waves-effect waves-light btn-large" onClick={this.div} style={{fontSize: "1.2em"}}>
-            <MathJax.Provider>
-              <MathJax.Node formula="\div" />
-            </MathJax.Provider>
-          </button>
-          <div className="input-field">
-            <input id="input" type="text" value={this.state.input} onChange={this.change} style={{fontSize: "2em"}}/>
-          </div>
+          <h4>解答</h4>
+          <MathBox name="answer" init="[-b+-#{b^{2}-4ac}]%[2a]" updateState={this.updateState} />
         </div>
 
         <span ><a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a></span>

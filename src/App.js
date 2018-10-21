@@ -26,11 +26,11 @@ class ReactRouter extends Component {
       <BrowserRouter>
         <div>
           <Route exact path='/'
-                 render={props => <Top updateState={this.updateState} questions={this.state.questions}/>} />
+                 render={() => <Top updateState={this.updateState} questions={this.state.questions}/>} />
           <Route path='/edit/:id'
-                 render={props => <Edit updateState={this.updateState} questions={this.state.questions}/>} />
+                 render={() => <Edit updateState={this.updateState} questions={this.state.questions}/>} />
           <Route path='/done'
-                 render={props => <Done questions={this.state.questions}/>} />
+                 render={() => <Done questions={this.state.questions}/>} />
         </div>
       </BrowserRouter>
     )

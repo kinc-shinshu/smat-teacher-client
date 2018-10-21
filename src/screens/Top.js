@@ -68,19 +68,20 @@ export class Top extends Component {
 
   deleteClick = (e) => {
     const key = e.target.getAttribute("questionId");
-    const deleted = this.state.questions.filter(q => q.id !== key);
+    const target = this.state.questions[key];
+    const deleted = this.state.questions.filter((q, i) => q !== target);
     this.setState({questions: deleted});
   }
 
   render() {
 
 
-    const items = this.state.questions.map((c) => {
+    const items = this.state.questions.map((c, i) => {
       return (
         <a  href={"/edit/"+c.text} className="collection-item">
           {c.text}
           <a href="#delete" className="secondary-content"><i
-          className="material-icons" questionId={c.id} onClick={this.deleteClick}>delete</i></a>
+          className="material-icons" questionId={i} onClick={this.deleteClick}>delete</i></a>
         </a>
       );
     });
