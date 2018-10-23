@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import 'materialize-css';
 import 'materialize-css/dist/css/materialize.min.css';
+import MathJax from 'react-mathjax';
 
 export class Top extends Component {
 
@@ -47,22 +48,22 @@ export class Top extends Component {
       .then(json => {
         console.log(json.id);
         this.state.questions.map((c) =>{
-            const question = {
-              text: c.text,
-              answer: c.answer
+          const question = {
+            text: c.text,
+            answer: c.answer
+          }
+          fetch(apiUrl + "/rooms/" + json.id + "/questions", {
+            method: 'POST',
+            body: JSON.stringify(question),
+            headers:{
+              'Content-Type': 'application/json'
             }
-            fetch(apiUrl + "/rooms/" + json.id + "/questions", {
-              method: 'POST',
-              body: JSON.stringify(question),
-              headers:{
-                'Content-Type': 'application/json'
-              }
-            })
-              .then(response => response.json())
-              .then(json => {
-                console.log(json);
-              });
           })
+            .then(response => response.json())
+            .then(json => {
+              console.log(json);
+            });
+        })
       });
   }
 
@@ -78,10 +79,12 @@ export class Top extends Component {
 
     const items = this.state.questions.map((c, i) => {
       return (
-        <a  href={"/edit/"+c.text} className="collection-item">
-          {c.text}
-          <a href="#delete" className="secondary-content"><i
-          className="material-icons" questionId={i} onClick={this.deleteClick}>delete</i></a>
+        <a  href={"/edit/"+c.text} className="collection-item" style={{minHeight: "5em"}}>
+          <MathJax.Provider>
+            <MathJax.Node formula={c.text} className="left"/>
+          </MathJax.Provider>
+          <a href="#delete" className="secondary-content "><i
+            className="material-icons" questionId={i} onClick={this.deleteClick}>delete</i></a>
         </a>
       );
     });
@@ -108,9 +111,13 @@ export class Top extends Component {
         </div>
         <div className="container">
           <h5>問題一覧</h5>
-          <div className="collection">
+          <div className="collection left-align">
             {items}
-            <a href="/edit/Alvin" className="collection-item">Alvin<a href="#delete" className="secondary-content"><i className="material-icons">delete</i></a></a>
+            <a href="/edit/Alvin" className="collection-item " style={{minHeight: "5em"}}>
+              <MathJax.Provider>
+                <MathJax.Node formula={"ax^{2}+bx+c=0"} className="left" />
+              </MathJax.Provider>
+              <a href="#delete" className="secondary-content"><i className="material-icons">delete</i></a></a>
           </div>
         </div>
       </div>
