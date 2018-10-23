@@ -57,7 +57,7 @@ class MathBox extends Component {
       [this.props.name]: changed_text
     });
     this.setState({
-      input: changed_text, 
+      input: changed_text,
       output: this.parse(changed_text)
     }, () => {
       input.focus();
@@ -177,19 +177,27 @@ export class Edit extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div class="card-panel grey lighten-4">
-          <h4>問題</h4>
-          <MathBox name="text" init="ax^{2}+bx+c=0" updateState={this.updateState} />
+      <div>
+        <div className="navbar-fixed " >
+          <nav>
+            <div className="nav-wrapper container">
+              <a href="#!" className="brand-logo">Logo</a>
+            </div>
+          </nav>
         </div>
-        <div class="card-panel grey lighten-4">
-          <h4>解答</h4>
-          <MathBox name="answer" init="[-b+-#{b^{2}-4ac}]%[2a]" updateState={this.updateState} />
+        <div className="container">
+          <div className="card-panel grey lighten-4">
+            <h4>問題</h4>
+            <MathBox name="text" init="ax^{2}+bx+c=0" updateState={this.updateState}/>
+          </div>
+          <div className="card-panel grey lighten-4">
+            <h4>解答</h4>
+            <MathBox name="answer" init="[-b+-#{b^{2}-4ac}]%[2a]" updateState={this.updateState}/>
+          </div>
+
+          <span><a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a></span>
+          <span><Link to={"/"} className="waves-effect waves-light btn-large">問題一覧へGo</Link></span>
         </div>
-
-        <span ><a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a></span>
-        <span ><Link to={"/"} className="waves-effect waves-light btn-large">問題一覧へGo</Link></span>
-
       </div>
     );
   }
