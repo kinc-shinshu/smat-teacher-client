@@ -74,6 +74,31 @@ export class Top extends Component {
     this.setState({questions: deleted});
   }
 
+  parse = (text) => {
+    let result = text.replace(/\*/g, "\\times");
+    result = result.replace(/\//g, "\\div");
+    result = result.replace(/\+-/g, "\\pm");
+    result = result.replace(/-\+/g, "\\mp");
+    const ss = result.match(/#{.+?}/g);
+    if (ss != null){
+      for (let s of ss){
+        let k = s.match(/[^#]+/g);
+        result = result.replace(s, "\\sqrt{" + k[0].slice(1, -1) + "}");
+      }
+    }
+    const fs = result.match(/\[.+?]%\[.+?]/g);
+    if (fs != null){
+      for (let f of fs){
+        console.log(f);
+        let k = f.match(/[^%]+/g);
+        result = result.replace(f, "\\frac{" + k[0].slice(1, -1) + "}{" + k[1].slice(1, -1) + "}");
+      }
+    }
+    result = result.replace(/@|#|\$|%|&/, "");
+    console.log(result);
+    return result
+  }
+
   render() {
 
 
@@ -81,7 +106,7 @@ export class Top extends Component {
       return (
         <a  href={"/edit/"+c.text} className="collection-item" style={{minHeight: "5em"}}>
           <MathJax.Provider>
-            <MathJax.Node formula={c.text} className="left"/>
+            <MathJax.Node formula={this.parse(c.text)} className="left"/>
           </MathJax.Provider>
           <a href="#delete" className="secondary-content "><i
             className="material-icons" questionId={i} onClick={this.deleteClick}>delete</i></a>
