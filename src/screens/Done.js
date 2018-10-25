@@ -82,6 +82,13 @@ export class Done extends Component {
     const roomID = this.state.id;
     return (
       <div>
+        <div className="navbar-fixed " >
+          <nav>
+            <div className="nav-wrapper container">
+              <a href="#!" className="brand-logo">Logo</a>
+            </div>
+          </nav>
+        </div>
         <div className="container">
           <h2 className="center-align" style={{marginTop:"2em"}}>ルーム番号<span style={{fontSize:"3em"}} className="pink-text">{roomID}</span></h2>
           <h3 className="center-align hide-on-small-only" style={{marginBottom:"1em"}}>番号を生徒にお伝えください</h3>
