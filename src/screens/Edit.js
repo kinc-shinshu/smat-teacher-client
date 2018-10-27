@@ -194,9 +194,12 @@ export class Edit extends Component {
             <h4>解答</h4>
             <MathBox name="answer" init="[-b+-#{b^{2}-4ac}]%[2a]" updateState={this.updateState}/>
           </div>
-
-          <span><a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a></span>
-          <span><Link to={"/"} className="waves-effect waves-light btn-large">問題一覧へGo</Link></span>
+          <div>
+            <a className="waves-effect waves-light btn-large" onClick={this.addQuestion}>完成</a>
+          </div>
+          <div className="center-align" style={{paddingTop: '1.5em'}}>
+            <Link to={"/"} className="waves-effect waves-light btn-large center-align">問題一覧へGo</Link>
+          </div>
         </div>
       </div>
     );
